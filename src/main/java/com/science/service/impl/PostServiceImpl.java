@@ -20,9 +20,6 @@ import java.util.function.Function;
 @Service
 public class PostServiceImpl implements PostService {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
-
     @Override
     public boolean saveBatch(Collection<Post> entityList, int batchSize) {
         return false;
