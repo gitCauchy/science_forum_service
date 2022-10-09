@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.science.entity.Post;
 import com.science.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -17,6 +20,10 @@ import java.util.function.Function;
  */
 @Service
 public class PostServiceImpl implements PostService {
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @Override
     public boolean saveBatch(Collection<Post> entityList, int batchSize) {
         return false;

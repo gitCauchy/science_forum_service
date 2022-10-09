@@ -8,3 +8,12 @@ spring:
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
+
+  data:
+    mongodb:
+      host: "localhost"
+      port: 27017
+      database: "my_db"
+      username: "my_db_owner"
+      password: "123456"
+
