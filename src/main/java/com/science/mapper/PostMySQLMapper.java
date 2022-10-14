@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @CreateTime: 2022/10/5
  */
 @Mapper
-public interface PostMapper extends BaseMapper<Post> {
+public interface PostMySQLMapper extends BaseMapper<Post> {
 }
