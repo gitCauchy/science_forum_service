@@ -5,5 +5,5 @@ package com.science.system.utils;
  * @Author: Cauchy
  * @CreateTime: 2022/10/6
  */
-public class DateUtils {
+public class DateUtil {
 }
