@@ -80,7 +80,7 @@ public class PostServiceImpl implements PostService {
     public List<PostVo> getTop20HotPost() {
         List<Post> topPosts = postMongoMapper.findAll();
         List<PostVo> postVoList = new ArrayList<>();
-        for (Post post : topPosts) {
+        topPosts.forEach(post -> {
             PostVo postVo = new PostVo();
             postVo.setAuthor(post.getAuthor());
             postVo.setContent(post.getContent());
@@ -88,16 +88,16 @@ public class PostServiceImpl implements PostService {
             postVo.setTitle(post.getTitle());
             List<CommentVo> commentVos = new ArrayList<>();
             List<Comment> comments = post.getComments();
-            for (Comment comment : comments) {
+            comments.forEach(comment -> {
                 CommentVo commentVo = new CommentVo();
                 commentVo.setAuthor(comment.getAuthor());
                 commentVo.setLike(comment.getLike());
                 commentVo.setContent(comment.getContent());
                 commentVos.add(commentVo);
-            }
+            });
             postVo.setComments(commentVos);
             postVoList.add(postVo);
-        }
+        });
         return postVoList;
     }
 }
