@@ -30,4 +30,12 @@ public class Comment {
      * 状态
      */
     private int status;
+    /**
+     * 作者
+     */
+    private String author;
+    /**
+     * 点赞
+     */
+    private int like;
 }

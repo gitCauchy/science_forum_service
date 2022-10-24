@@ -10,9 +10,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
   data:
     mongodb:
-      host: "localhost"
+      host: "127.0.0.1"
       port: 27017
-      database: "my_db"
-      username: "my_db_owner"
-      password: "123456"
+      database: "science_forum"
+      username: "forum"
+      password: "password"
 
+logging:
+  level:
+    org.springframework.data.mongodb.core: debug

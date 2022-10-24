@@ -5,5 +5,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 
 public interface PostMongoMapper extends MongoRepository<Post, Long> {
-
 }
