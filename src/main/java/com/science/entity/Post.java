@@ -60,4 +60,8 @@ public class Post {
      * 作者
      */
     private String author;
+    /**
+     * 热度
+     */
+    private int hotDegree;
 }

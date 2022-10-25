@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.science.entity.Post;
 import com.science.vo.response.PostVo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -18,4 +19,14 @@ public interface PostService extends IService<Post> {
      * @return List<PostVo>
      */
     List<PostVo> getTop20HotPost();
+
+    /**
+     * 获取热度
+     *
+     * @param createTime 创建时间
+     * @param comments   评论数
+     * @param like       点赞数
+     * @return 热度
+     */
+    int getHotDegree(LocalDateTime createTime, int comments, int like);
 }

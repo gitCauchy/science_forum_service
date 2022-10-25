@@ -12,6 +12,9 @@ import com.science.vo.response.PostVo;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -78,7 +81,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostVo> getTop20HotPost() {
-        List<Post> topPosts = postMongoMapper.findAll();
+        List<Post> topPosts = postMongoMapper.findAllOrderByHotDegree();
         List<PostVo> postVoList = new ArrayList<>();
         topPosts.forEach(post -> {
             PostVo postVo = new PostVo();
@@ -99,5 +102,12 @@ public class PostServiceImpl implements PostService {
             postVoList.add(postVo);
         });
         return postVoList;
+    }
+
+    @Override
+    public int getHotDegree(LocalDateTime createTime, int comments, int like) {
+        LocalDate now = LocalDate.now();
+        int distance = Period.between(now, createTime.toLocalDate()).getDays();
+        return (2 * distance * like + 3 * distance * comments);
     }
 }
