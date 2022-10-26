@@ -1,10 +1,12 @@
 package com.science.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
+@TableName("f_comment")
 public class Comment {
     /**
      * 主键 ID
