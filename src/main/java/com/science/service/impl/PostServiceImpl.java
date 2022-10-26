@@ -1,12 +1,12 @@
 package com.science.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.science.entity.Comment;
 import com.science.entity.Post;
 import com.science.mapper.PostMongoMapper;
 import com.science.mapper.PostMySQLMapper;
 import com.science.service.PostService;
+import com.science.system.utils.RedisUtil;
 import com.science.vo.response.CommentVo;
 import com.science.vo.response.PostVo;
 import lombok.AllArgsConstructor;
@@ -16,10 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 /**
  * @Description: Post Service 实现类
@@ -28,60 +25,18 @@ import java.util.function.Function;
  */
 @Service
 @AllArgsConstructor
-public class PostServiceImpl implements PostService {
+public class PostServiceImpl extends ServiceImpl<PostMySQLMapper,Post> implements PostService {
 
     PostMySQLMapper postMySQLMapper;
 
     PostMongoMapper postMongoMapper;
 
-    @Override
-    public boolean saveBatch(Collection<Post> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdateBatch(Collection<Post> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean updateBatchById(Collection<Post> entityList, int batchSize) {
-        return false;
-    }
-
-    @Override
-    public boolean saveOrUpdate(Post entity) {
-        return false;
-    }
-
-    @Override
-    public Post getOne(Wrapper<Post> queryWrapper, boolean throwEx) {
-        return null;
-    }
-
-    @Override
-    public Map<String, Object> getMap(Wrapper<Post> queryWrapper) {
-        return null;
-    }
-
-    @Override
-    public <V> V getObj(Wrapper<Post> queryWrapper, Function<? super Object, V> mapper) {
-        return null;
-    }
-
-    @Override
-    public BaseMapper<Post> getBaseMapper() {
-        return null;
-    }
-
-    @Override
-    public Class<Post> getEntityClass() {
-        return null;
-    }
+    RedisUtil redisUtil;
 
     @Override
     public List<PostVo> getTop20HotPost() {
-        List<Post> topPosts = postMongoMapper.findAllOrderByHotDegree();
+
+        List<Post> topPosts = postMongoMapper.findTop20HotPosts();
         List<PostVo> postVoList = new ArrayList<>();
         topPosts.forEach(post -> {
             PostVo postVo = new PostVo();
@@ -105,9 +60,40 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int getHotDegree(LocalDateTime createTime, int comments, int like) {
+    public int getHotDegree(LocalDateTime createTime, int comments, int like, int scan) {
         LocalDate now = LocalDate.now();
         int distance = Period.between(now, createTime.toLocalDate()).getDays();
-        return (2 * distance * like + 3 * distance * comments);
+        return (scan + 2 * distance * like + 3 * distance * comments);
     }
+
+    @Override
+    public void synchronizeHotList() {
+        List<Post> topPosts = postMongoMapper.findTop20HotPosts();
+        topPosts.forEach(post -> {
+
+            String key = "post" + post.getId().toString();
+            redisUtil.put(key, "author", post.getAuthor());
+            redisUtil.put(key, "like", post.getLike());
+            redisUtil.put(key, "content", post.getContent());
+            redisUtil.put(key, "title", post.getTitle());
+            redisUtil.put(key, "scan", post.getScan());
+            redisUtil.put(key, "createTime", post.getCreateTime());
+        });
+    }
+
+    @Override
+    public List<Post> getHotList() {
+        List<Post> hostList = new ArrayList<>();
+        // 从 redis 中取出热榜数据
+        return null;
+
+    }
+
+    /**
+     * 保存 Post 热榜 Id 持久化到 MySQL 中
+     */
+    private void saveHotIdList() {
+    }
+
+
 }

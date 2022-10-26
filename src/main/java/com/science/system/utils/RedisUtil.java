@@ -10,6 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.Set;
+
 @Component
 @AllArgsConstructor
 public class RedisUtil {
@@ -77,6 +80,57 @@ public class RedisUtil {
         this.template.opsForSet().add(key, values);
     }
 
+    /**
+     * @param key       键
+     * @param hashKey   hash key
+     * @param hashValue hash Value
+     */
+    public void put(String key, Object hashKey, Object hashValue) {
+        this.template.opsForHash().put(key, hashKey, hashValue);
+    }
+
+    /**
+     * @param key
+     * @param hashKey
+     * @return
+     */
+    public Object get(String key, String hashKey) {
+        return this.template.opsForHash().get(key, hashKey);
+    }
+
+    /**
+     * @param key
+     * @param hashKey
+     * @param delta
+     */
+    public void increment(String key, Object hashKey, Long delta) {
+        this.template.opsForHash().increment(key, hashKey, delta);
+
+    }
+
+    /**
+     * @param key
+     * @param map
+     */
+    public void putAll(String key, Map<Object, Object> map) {
+        this.template.opsForHash().putAll(key, map);
+    }
+
+    /**
+     * @param key
+     * @return
+     */
+    public Map<Object, Object> entries(String key) {
+        return this.template.opsForHash().entries(key);
+    }
+
+    /**
+     * @param key
+     * @return
+     */
+    public Set<Object> keys(String key) {
+        return this.template.opsForHash().keys(key);
+    }
 }
 
 

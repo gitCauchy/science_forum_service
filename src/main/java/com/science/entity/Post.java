@@ -1,5 +1,7 @@
 package com.science.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -26,7 +28,7 @@ public class Post {
     /**
      * 主键 id
      */
-    //@TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
     /**
      * 内容
@@ -64,4 +66,8 @@ public class Post {
      * 热度
      */
     private int hotDegree;
+    /**
+     * 浏览
+     */
+    private int scan;
 }

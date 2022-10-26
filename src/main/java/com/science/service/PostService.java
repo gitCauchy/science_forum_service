@@ -28,5 +28,12 @@ public interface PostService extends IService<Post> {
      * @param like       点赞数
      * @return 热度
      */
-    int getHotDegree(LocalDateTime createTime, int comments, int like);
+    int getHotDegree(LocalDateTime createTime, int comments, int like, int scan);
+
+    /**
+     * 热门榜单存储设计
+     */
+    void synchronizeHotList();
+
+    List<Post> getHotList();
 }
