@@ -1,6 +1,7 @@
 package com.science.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.science.entity.Comment;
 import com.science.entity.Post;
 import com.science.vo.response.PostVo;
 
@@ -36,4 +37,8 @@ public interface PostService extends IService<Post> {
     void synchronizeHotList();
 
     List<Post> getHotList();
+
+    void addComment(Comment comment);
+
+    void addLike(long postId);
 }

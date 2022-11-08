@@ -20,6 +20,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @Description: Post Service 实现类
@@ -107,6 +108,27 @@ public class PostServiceImpl extends ServiceImpl<PostMySQLMapper, Post> implemen
             postList.add(post);
         }
         return postList;
+    }
+
+    @Override
+    public void addComment(Comment comment) {
+        Optional<Post> postOptional = postMongoMapper.findById(comment.getPostId());
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            post.getComments().add(comment);
+            postMongoMapper.save(post);
+        }
+
+    }
+
+    @Override
+    public void addLike(long postId) {
+        Optional<Post> postOptional = postMongoMapper.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            post.setLike(post.getLike() + 1);
+            postMongoMapper.save(post);
+        }
     }
 
     /**
