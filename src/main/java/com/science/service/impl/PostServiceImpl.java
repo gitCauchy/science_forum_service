@@ -46,6 +46,7 @@ public class PostServiceImpl extends ServiceImpl<PostMySQLMapper, Post> implemen
         List<PostVo> postVoList = new ArrayList<>();
         topPosts.forEach(post -> {
             PostVo postVo = new PostVo();
+            postVo.setId(post.getId());
             postVo.setAuthor(post.getAuthor());
             postVo.setContent(post.getContent());
             postVo.setLike(post.getLike());

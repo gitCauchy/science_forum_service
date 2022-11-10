@@ -12,6 +12,10 @@ import java.util.List;
 @Data
 public class PostVo {
     /**
+     * id
+     */
+    private Long id;
+    /**
      * 标题
      */
     private String title;

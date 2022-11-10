@@ -5,9 +5,7 @@ import com.science.vo.response.PostVo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,9 +27,14 @@ public class PostController {
      *
      * @return PostVo 列表
      */
-    @RequestMapping("/getTop20HotPost")
+    @GetMapping("/getTop20HotPost")
     public ResponseEntity<List<PostVo>> getTop20HotPost() {
         List<PostVo> postVoList = postService.getTop20HotPost();
         return new ResponseEntity<>(postVoList, HttpStatus.OK);
+    }
+
+    @GetMapping("/addLike")
+    public void addLike(@RequestParam(value = "postId") Long postId){
+        postService.addLike(postId);
     }
 }
