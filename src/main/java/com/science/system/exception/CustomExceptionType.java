@@ -13,11 +13,11 @@ public enum CustomExceptionType {
     /**
      * 异常代码
      */
-    private int code;
+    private final int code;
     /**
      * 异常说明
      */
-    private String typeDesc;
+    private final String typeDesc;
 
     public int getCode() {
         return code;

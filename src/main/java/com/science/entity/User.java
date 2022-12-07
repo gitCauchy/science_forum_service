@@ -1,12 +1,10 @@
 package com.science.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-@TableName("f_user")
 public class User {
     /**
      * 主键 ID

@@ -1,6 +1,5 @@
 package com.science.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.science.entity.Comment;
 import com.science.entity.HotListRecord;
 import com.science.entity.Post;
@@ -12,6 +11,7 @@ import com.science.system.utils.RedisUtil;
 import com.science.vo.response.CommentVo;
 import com.science.vo.response.PostVo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -29,7 +29,8 @@ import java.util.Optional;
  */
 @Service
 @AllArgsConstructor
-public class PostServiceImpl extends ServiceImpl<PostMySQLMapper, Post> implements PostService {
+@Slf4j
+public class PostServiceImpl implements PostService {
 
     PostMySQLMapper postMySQLMapper;
 
@@ -144,6 +145,6 @@ public class PostServiceImpl extends ServiceImpl<PostMySQLMapper, Post> implemen
         HotListRecord hotListRecord = new HotListRecord();
         hotListRecord.setDate(LocalDate.now());
         hotListRecord.setHotIdList(sb.toString());
-        hotListRecordService.save(hotListRecord);
+        // TODO save hotListRecordService.save(hotListRecord);
     }
 }

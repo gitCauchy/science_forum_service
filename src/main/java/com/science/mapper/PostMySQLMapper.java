@@ -1,7 +1,5 @@
 package com.science.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.science.entity.Post;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface PostMySQLMapper extends BaseMapper<Post> {
+public interface PostMySQLMapper {
 }

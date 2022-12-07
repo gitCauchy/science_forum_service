@@ -3,6 +3,7 @@ package com.science.controller;
 import com.science.service.PostService;
 import com.science.vo.response.PostVo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
  * @Author: Cauchy
  * @CreateTime: 2022/10/6
  */
+@Slf4j
 @CrossOrigin
 @RestController
 @AllArgsConstructor
@@ -29,6 +31,7 @@ public class PostController {
      */
     @GetMapping("/getTop20HotPost")
     public ResponseEntity<List<PostVo>> getTop20HotPost() {
+        log.info("12345");
         List<PostVo> postVoList = postService.getTop20HotPost();
         return new ResponseEntity<>(postVoList, HttpStatus.OK);
     }
